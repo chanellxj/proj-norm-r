@@ -1,13 +1,39 @@
-Version: 1.0
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+from sklearn.svm._libsvm import
+LIBSVM_KERNEL_TYPES
+# p=os.getcwd()
+#print(p)
+from scipy import stats
+import seaborn as sns
+from sklearn.model_selection import 
+train_test_split
+from sklearn.metrics import accuracy_score
+from sklearm.svm import SVR, SVC
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+df = pd.read_csv('VTLNNew.csv')
+print(df)
 
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
+df.count
+df['label'].value_counts()
 
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+D = df.values
+x = df.drop(columns = [ 'label' ])
+#y =int(df['label'])
+y = df['label'].astype(int)
+x_tr, x_ts, y_tr, y_ts = train_test_split(x,y,test_size = 0.20, random_state=42)
+model = SVC(kernel = 'rbf', gamma = 0.7, c =1 )
+model.fit(x_tr,y_tr)
+#y_ts = np.reshape(y_ts,(-1,1))
+#y_ts = [y_ts]
+predict_vowel = model.predict(x_ts)
+accuracy_score(y_ts, predict_vowel)
+
+
+
+
+
+
+
